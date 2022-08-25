@@ -1,2 +1,3 @@
-gems.locked
-.covered.db
+/gems.locked
+/.covered.db
+/pkg

@@ -2,15 +2,17 @@
 
 Provides a convenient fixture for running a web server.
 
+[![Development Status](https://github.com/socketry/sus-fixtures-async-http/workflows/Test/badge.svg)](https://github.com/socketry/sus-fixtures-async-http/actions?workflow=Test)
+
 ## Installation
 
-```bash
+``` bash
 $ bundle add sus-fixtures-async-http
 ```
 
 ## Usage
 
-```ruby
+``` ruby
 include Sus::Fixtures::Async::HTTP::ServerContext
 
 let(:response) {client.get("/")}
