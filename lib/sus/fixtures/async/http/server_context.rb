@@ -44,10 +44,14 @@ module Sus::Fixtures
 					@client
 				end
 				
+				def client_endpoint
+					@address_endpoint
+				end
+				
 				def before
 					# We bind the endpoint before running the server so that we know incoming connections will be accepted:
 					@bound_endpoint = ::Async::IO::SharedEndpoint.bound(endpoint)
-					@address_endpoint = @bound_endpoint.local_address_endpoint
+					@client_endpoint = @bound_endpoint.local_address_endpoint
 					
 					# I feel a dedicated class might be better than this hack:
 					mock(@bound_endpoint) do |mock|
@@ -55,7 +59,7 @@ module Sus::Fixtures
 						mock.replace(:scheme) {endpoint.scheme}
 					end
 					
-					mock(@address_endpoint) do |mock|
+					mock(@client_endpoint) do |mock|
 						mock.replace(:protocol) {endpoint.protocol}
 						mock.replace(:scheme) {endpoint.scheme}
 						mock.replace(:authority) {endpoint.authority}
@@ -65,7 +69,7 @@ module Sus::Fixtures
 						server.run
 					end
 					
-					@client = ::Async::HTTP::Client.new(@address_endpoint, protocol: endpoint.protocol, retries: retries)
+					@client = ::Async::HTTP::Client.new(@client_endpoint, protocol: endpoint.protocol, retries: retries)
 				end
 				
 				def after
