@@ -11,4 +11,15 @@ describe Sus::Fixtures::Async::HTTP::ServerContext do
 	it 'can perform a reqeust' do
 		expect(response.read).to be == "Hello World!"
 	end
+	
+	with '#client_endpoint' do
+		it 'is suitable as an HTTP endpoint' do
+			expect(client_endpoint).not.to be_nil
+			expect(client_endpoint).to have_attributes(
+				protocol: be == endpoint.protocol,
+				scheme: be == endpoint.scheme,
+				authority: be == endpoint.authority,
+			)
+		end
+	end
 end

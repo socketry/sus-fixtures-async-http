@@ -45,7 +45,7 @@ module Sus::Fixtures
 				end
 				
 				def client_endpoint
-					@address_endpoint
+					@client_endpoint
 				end
 				
 				def before
