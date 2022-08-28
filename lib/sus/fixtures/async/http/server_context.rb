@@ -14,12 +14,14 @@ module Sus::Fixtures
 			module ServerContext
 				include ReactorContext
 				
+				def timeout = nil
+				
 				def protocol
 					::Async::HTTP::Protocol::HTTP1
 				end
 				
 				def endpoint
-					::Async::HTTP::Endpoint.parse('http://127.0.0.1:9294', timeout: 0.8, reuse_port: true, protocol: protocol)
+					::Async::HTTP::Endpoint.parse('http://localhost:0', timeout: 0.8, reuse_port: true, protocol: protocol)
 				end
 				
 				def retries
@@ -45,6 +47,7 @@ module Sus::Fixtures
 				def before
 					# We bind the endpoint before running the server so that we know incoming connections will be accepted:
 					@bound_endpoint = ::Async::IO::SharedEndpoint.bound(endpoint)
+					@address_endpoint = @bound_endpoint.local_address_endpoint
 					
 					# I feel a dedicated class might be better than this hack:
 					mock(@bound_endpoint) do |mock|
@@ -52,11 +55,17 @@ module Sus::Fixtures
 						mock.replace(:scheme) {endpoint.scheme}
 					end
 					
+					mock(@address_endpoint) do |mock|
+						mock.replace(:protocol) {endpoint.protocol}
+						mock.replace(:scheme) {endpoint.scheme}
+						mock.replace(:authority) {endpoint.authority}
+					end
+					
 					@server_task = Async do
 						server.run
 					end
 					
-					@client = ::Async::HTTP::Client.new(endpoint, protocol: endpoint.protocol, retries: retries)
+					@client = ::Async::HTTP::Client.new(@address_endpoint, protocol: endpoint.protocol, retries: retries)
 				end
 				
 				def after
