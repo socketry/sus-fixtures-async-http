@@ -23,6 +23,7 @@ describe Sus::Fixtures::Async::HTTP::ServerContext do
 				protocol: be == endpoint.protocol,
 				scheme: be == endpoint.scheme,
 				authority: be == endpoint.authority,
+				path: be == endpoint.path,
 			)
 		end
 	end

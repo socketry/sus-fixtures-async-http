@@ -61,6 +61,7 @@ module Sus::Fixtures
 						mock.replace(:protocol) {endpoint.protocol}
 						mock.replace(:scheme) {endpoint.scheme}
 						mock.replace(:authority) {endpoint.authority}
+						mock.replace(:path) {endpoint.path}
 					end
 					
 					@server_task = Async do
