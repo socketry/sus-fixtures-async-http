@@ -14,8 +14,6 @@ module Sus::Fixtures
 			module ServerContext
 				include ReactorContext
 				
-				def timeout = nil
-				
 				def protocol
 					::Async::HTTP::Protocol::HTTP1
 				end

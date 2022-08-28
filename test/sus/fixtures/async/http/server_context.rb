@@ -12,6 +12,10 @@ describe Sus::Fixtures::Async::HTTP::ServerContext do
 		expect(response.read).to be == "Hello World!"
 	end
 	
+	it 'has a timeout' do
+		expect(timeout).to(be > 0).and(be < 60)
+	end
+	
 	with '#client_endpoint' do
 		it 'is suitable as an HTTP endpoint' do
 			expect(client_endpoint).not.to be_nil
