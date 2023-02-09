@@ -1,0 +1,6 @@
+async-websocket:
+  url: https://github.com/socketry/async-websocket
+  command: bundle exec bake test
+protocol-rack:
+  url: https://github.com/socketry/protocol-rack
+  command: bundle exec bake test
