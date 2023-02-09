@@ -16,6 +16,10 @@ describe Sus::Fixtures::Async::HTTP::ServerContext do
 		expect(timeout).to(be > 0).and(be < 60)
 	end
 	
+	it 'has a bound url' do
+		expect(bound_url).to be =~ %r{http://127.0.0.1}
+	end
+	
 	with '#client_endpoint' do
 		it 'is suitable as an HTTP endpoint' do
 			expect(client_endpoint).not.to be_nil

@@ -18,8 +18,35 @@ module Sus::Fixtures
 					::Async::HTTP::Protocol::HTTP1
 				end
 				
+				def url
+					'http://localhost:0'
+				end
+				
+				def bound_urls
+					urls = []
+					
+					@client_endpoint.each do |address_endpoint|
+						address = address_endpoint.address
+
+						host = address.ip_address
+						if address.ipv6?
+							host = "[#{host}]"
+						end
+						
+						port = address.ip_port
+						
+						urls << "#{endpoint.scheme}://#{host}:#{port}"
+					end
+					
+					return urls
+				end
+				
+				def bound_url
+					bound_urls.first
+				end
+				
 				def endpoint
-					::Async::HTTP::Endpoint.parse('http://localhost:0', timeout: 0.8, reuse_port: true, protocol: protocol)
+					::Async::HTTP::Endpoint.parse(url, timeout: 0.8, reuse_port: true, protocol: protocol)
 				end
 				
 				def retries
@@ -47,6 +74,8 @@ module Sus::Fixtures
 				end
 				
 				def before
+					super
+					
 					# We bind the endpoint before running the server so that we know incoming connections will be accepted:
 					@bound_endpoint = ::Async::IO::SharedEndpoint.bound(endpoint)
 					@client_endpoint = @bound_endpoint.local_address_endpoint
@@ -75,6 +104,8 @@ module Sus::Fixtures
 					@client&.close
 					@server_task&.stop
 					@bound_endpoint&.close
+					
+					super
 				end
 			end
 		end
