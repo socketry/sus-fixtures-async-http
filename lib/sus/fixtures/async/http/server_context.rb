@@ -29,7 +29,7 @@ module Sus::Fixtures
 					
 					@client_endpoint.each do |address_endpoint|
 						address = address_endpoint.address
-
+						
 						host = address.ip_address
 						if address.ipv6?
 							host = "[#{host}]"
@@ -39,6 +39,8 @@ module Sus::Fixtures
 						
 						urls << "#{endpoint.scheme}://#{host}:#{port}"
 					end
+					
+					urls.sort!
 					
 					return urls
 				end
