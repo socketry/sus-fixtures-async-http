@@ -1,3 +1,5 @@
+/.bundle/
+/pkg/
 /gems.locked
 /.covered.db
-/pkg
+/external
