@@ -22,6 +22,10 @@ describe Sus::Fixtures::Async::HTTP::ServerContext do
 		expect(bound_url).to be =~ %r{http://127.0.0.1}
 	end
 	
+	it 'has a server' do
+		expect(server).to be_a(::Async::HTTP::Server)
+	end
+	
 	with '#client_endpoint' do
 		it 'is suitable as an HTTP endpoint' do
 			expect(client_endpoint).not.to be_nil
