@@ -65,8 +65,16 @@ module Sus::Fixtures
 					app
 				end
 				
-				def server
+				def make_server_endpoint(bound_endpoint)
+					bound_endpoint
+				end
+				
+				def make_server(endpoint)
 					::Async::HTTP::Server.new(middleware, @bound_endpoint)
+				end
+				
+				def server
+					@server
 				end
 				
 				def client
@@ -77,31 +85,40 @@ module Sus::Fixtures
 					@client_endpoint
 				end
 				
+				def make_client_endpoint(bound_endpoint)
+					bound_endpoint.local_address_endpoint
+				end
+				
+					
 				def before
 					super
 					
 					# We bind the endpoint before running the server so that we know incoming connections will be accepted:
 					@bound_endpoint = ::Async::IO::SharedEndpoint.bound(endpoint)
-					@client_endpoint = @bound_endpoint.local_address_endpoint
 					
-					# I feel a dedicated class might be better than this hack:
-					mock(@bound_endpoint) do |mock|
-						mock.replace(:protocol) {endpoint.protocol}
-						mock.replace(:scheme) {endpoint.scheme}
+					@server_endpoint = make_server_endpoint(@bound_endpoint)
+					mock(@server_endpoint) do |wrapper|
+						wrapper.replace(:protocol) {endpoint.protocol}
+						wrapper.replace(:scheme) {endpoint.scheme}
+						wrapper.replace(:authority) {endpoint.authority}
+						wrapper.replace(:path) {endpoint.path}
 					end
 					
-					mock(@client_endpoint) do |mock|
-						mock.replace(:protocol) {endpoint.protocol}
-						mock.replace(:scheme) {endpoint.scheme}
-						mock.replace(:authority) {endpoint.authority}
-						mock.replace(:path) {endpoint.path}
-					end
+					@server = make_server(@server_endpoint)
 					
 					@server_task = Async do
-						server.run
+						@server.run
 					end
 					
-					@client = ::Async::HTTP::Client.new(@client_endpoint, protocol: endpoint.protocol, retries: retries)
+					@client_endpoint = make_client_endpoint(@bound_endpoint)
+					mock(@client_endpoint) do |wrapper|
+						wrapper.replace(:protocol) {endpoint.protocol}
+						wrapper.replace(:scheme) {endpoint.scheme}
+						wrapper.replace(:authority) {endpoint.authority}
+						wrapper.replace(:path) {endpoint.path}
+					end
+					
+					@client = ::Async::HTTP::Client.new(@client_endpoint, retries: retries)
 				end
 				
 				def after
