@@ -70,7 +70,7 @@ module Sus::Fixtures
 				end
 				
 				def make_server(endpoint)
-					::Async::HTTP::Server.new(middleware, @bound_endpoint)
+					::Async::HTTP::Server.new(middleware, endpoint)
 				end
 				
 				def server
