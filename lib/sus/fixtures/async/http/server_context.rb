@@ -89,7 +89,12 @@ module Sus::Fixtures
 					bound_endpoint.local_address_endpoint
 				end
 				
+				def make_client(endpoint, **options)
+					options[:retries] = retries unless options.key?(:retries)
 					
+					::Async::HTTP::Client.new(endpoint, **options)
+				end
+				
 				def before
 					super
 					
@@ -118,7 +123,7 @@ module Sus::Fixtures
 						wrapper.replace(:path) {endpoint.path}
 					end
 					
-					@client = ::Async::HTTP::Client.new(@client_endpoint, retries: retries)
+					@client = make_client(@client_endpoint)
 				end
 				
 				def after
