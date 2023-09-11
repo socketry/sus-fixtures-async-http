@@ -86,7 +86,8 @@ module Sus::Fixtures
 				end
 				
 				def make_client_endpoint(bound_endpoint)
-					bound_endpoint.local_address_endpoint
+					# Pass through the timeout:
+					bound_endpoint.local_address_endpoint(timeout: endpoint.timeout)
 				end
 				
 				def make_client(endpoint, **options)
