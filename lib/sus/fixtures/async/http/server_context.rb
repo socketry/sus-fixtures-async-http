@@ -8,7 +8,6 @@ require 'sus/fixtures/async/reactor_context'
 require 'async/http/server'
 require 'async/http/client'
 require 'async/http/endpoint'
-require 'async/io/shared_endpoint'
 
 module Sus::Fixtures
 	module Async
@@ -100,7 +99,7 @@ module Sus::Fixtures
 					super
 					
 					# We bind the endpoint before running the server so that we know incoming connections will be accepted:
-					@bound_endpoint = ::Async::IO::SharedEndpoint.bound(endpoint)
+					@bound_endpoint = endpoint.bound
 					
 					@server_endpoint = make_server_endpoint(@bound_endpoint)
 					mock(@server_endpoint) do |wrapper|

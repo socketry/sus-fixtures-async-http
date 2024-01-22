@@ -15,7 +15,7 @@ describe Sus::Fixtures::Async::HTTP::ServerContext do
 	end
 	
 	it 'has a timeout' do
-		expect(timeout).to(be > 0).and(be < 60)
+		expect(timeout).to(be > 0).and(be <= 60)
 	end
 	
 	it 'has a bound url' do
