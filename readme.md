@@ -2,7 +2,7 @@
 
 Provides a convenient fixture for running a web server.
 
-[![Development Status](https://github.com/socketry/sus-fixtures-async-http/workflows/Test/badge.svg)](https://github.com/socketry/sus-fixtures-async-http/actions?workflow=Test)
+[![Development Status](https://github.com/sus-rb/sus-fixtures-async-http/workflows/Test/badge.svg)](https://github.com/sus-rb/sus-fixtures-async-http/actions?workflow=Test)
 
 ## Installation
 
