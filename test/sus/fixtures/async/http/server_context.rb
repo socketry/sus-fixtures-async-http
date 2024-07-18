@@ -37,4 +37,9 @@ describe Sus::Fixtures::Async::HTTP::ServerContext do
 			)
 		end
 	end
+	
+	# it "doesn't hang" do
+	# 	response = self.response
+	# 	raise "boom"
+	# end
 end

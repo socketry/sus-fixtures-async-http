@@ -127,9 +127,12 @@ module Sus::Fixtures
 				end
 				
 				def after
-					@client&.close
-					@server_task&.stop
-					@bound_endpoint&.close
+					# We add a timeout here, to avoid hanging in `@client.close`:
+					::Async::Task.current.with_timeout(1) do
+						@client&.close
+						@server_task&.stop
+						@bound_endpoint&.close
+					end
 					
 					super
 				end
