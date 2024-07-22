@@ -13,12 +13,12 @@ Gem::Specification.new do |spec|
 	spec.cert_chain  = ['release.cert']
 	spec.signing_key = File.expand_path('~/.gem/release.pem')
 	
-	spec.homepage = "https://github.com/sus-rb/sus-fixtures-async-http"
+	spec.homepage = "https://github.com/suspecting/sus-fixtures-async-http"
 	
 	spec.metadata = {
-		"documentation_uri" => "https://sus-rb.github.io/sus-fixtures-async-http/",
+		"documentation_uri" => "https://suspecting.github.io/sus-fixtures-async-http/",
 		"funding_uri" => "https://github.com/sponsors/ioquatix/",
-		"source_code_uri" => "https://github.com/sus-rb/sus-fixtures-async-http.git",
+		"source_code_uri" => "https://github.com/suspecting/sus-fixtures-async-http.git",
 	}
 	
 	spec.files = Dir.glob(['{lib}/**/*', '*.md'], File::FNM_DOTMATCH, base: __dir__)
