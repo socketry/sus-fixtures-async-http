@@ -126,7 +126,7 @@ module Sus::Fixtures
 					@client = make_client(@client_endpoint)
 				end
 				
-				def after
+				def after(error = nil)
 					# We add a timeout here, to avoid hanging in `@client.close`:
 					::Async::Task.current.with_timeout(1) do
 						@client&.close
