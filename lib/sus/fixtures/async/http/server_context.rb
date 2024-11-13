@@ -49,7 +49,7 @@ module Sus::Fixtures
 				end
 				
 				def endpoint
-					::Async::HTTP::Endpoint.parse(url, timeout: 0.8, reuse_port: true, protocol: protocol)
+					::Async::HTTP::Endpoint.parse(url, reuse_port: true, protocol: protocol)
 				end
 				
 				def retries
