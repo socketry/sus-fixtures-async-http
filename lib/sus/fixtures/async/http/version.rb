@@ -7,7 +7,7 @@ module Sus
 	module Fixtures
 		module Async
 			module HTTP
-				VERSION = "0.9.1"
+				VERSION = "0.10.0"
 			end
 		end
 	end
