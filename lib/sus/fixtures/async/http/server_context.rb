@@ -48,8 +48,12 @@ module Sus::Fixtures
 					bound_urls.first
 				end
 				
+				def endpoint_options
+					{reuse_port: true, protocol: protocol}
+				end
+				
 				def endpoint
-					::Async::HTTP::Endpoint.parse(url, reuse_port: true, protocol: protocol)
+					::Async::HTTP::Endpoint.parse(url, **endpoint_options)
 				end
 				
 				def retries
