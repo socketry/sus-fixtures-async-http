@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 # Released under the MIT License.
-# Copyright, 2022-2024, by Samuel Williams.
+# Copyright, 2022-2025, by Samuel Williams.
 
-require 'sus/fixtures/async/reactor_context'
+require "sus/fixtures/async/reactor_context"
 
-require 'async/http/server'
-require 'async/http/client'
-require 'async/http/endpoint'
+require "async/http/server"
+require "async/http/client"
+require "async/http/endpoint"
 
 module Sus::Fixtures
 	module Async
@@ -20,7 +20,7 @@ module Sus::Fixtures
 				end
 				
 				def url
-					'http://localhost:0'
+					"http://localhost:0"
 				end
 				
 				def bound_urls
