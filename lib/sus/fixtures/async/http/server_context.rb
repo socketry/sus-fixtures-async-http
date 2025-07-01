@@ -115,9 +115,7 @@ module Sus::Fixtures
 					
 					@server = make_server(@server_endpoint)
 					
-					@server_task = Async do
-						@server.run
-					end
+					@server_task = @server.run
 					
 					@client_endpoint = make_client_endpoint(@bound_endpoint)
 					mock(@client_endpoint) do |wrapper|
@@ -135,6 +133,7 @@ module Sus::Fixtures
 					::Async::Task.current.with_timeout(1) do
 						@client&.close
 						@server_task&.stop
+						@server_task&.wait
 						@bound_endpoint&.close
 					end
 					
