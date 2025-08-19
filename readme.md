@@ -14,7 +14,7 @@ Please see the [project documentation](https://socketry.github.io/sus-fixtures-a
 
 Please see the [project releases](https://socketry.github.io/sus-fixtures-async-http/releases/index) for all releases.
 
-### Unreleased
+### v0.12.0
 
   - Add agent context.
 

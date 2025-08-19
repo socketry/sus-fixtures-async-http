@@ -1,6 +1,6 @@
 # Releases
 
-## Unreleased
+## v0.12.0
 
   - Add agent context.
 
@@ -52,7 +52,7 @@
 
   - Sort bound URLs for more predictable tests.
   - Add missing dependency on `async-http`.
-  - Expose url and bound_urls.
+  - Expose url and bound\_urls.
 
 ## v0.2.3
 
