@@ -185,7 +185,7 @@ module Sus::Fixtures
 					::Async::Task.current.with_timeout(1) do
 						@client&.close
 						@server_task&.stop
-						@server_task&.wait
+						@server_task&.wait_all
 						@bound_endpoint&.close
 					end
 					
